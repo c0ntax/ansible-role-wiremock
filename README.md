@@ -14,6 +14,12 @@ Role Variables
 Things that you might want to change:
 
 ```yaml
+wiremock_install: true
+```
+
+By default, this role will install wiremock, but setting this to false will skip installation. (So that you can skip it on production environments for example)
+
+```yaml
 wiremock_daemon: true
 ```
 
@@ -84,7 +90,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: c0ntax.wiremock }
+         - { role: c0ntax.wiremock, wiremock_install: true, wiremock_daemon: true }
 
 License
 -------
