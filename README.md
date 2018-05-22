@@ -1,38 +1,92 @@
 ansible-role-wiremock
 =====================
 
-A simple ansible role that will configure one or more wiremock servers to run.
+A simple ansible role that will configure one or more [Wiremock](http://wiremock.org) servers to run.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Things that you might want to change:
+
+```yaml
+wiremock_daemon: true
+```
+
+Installs wiremock as a init V script. If this is set to false, this role will simply download the jar file for you and put it somewhere sane
+
+```yaml
+wiremock_service_state: started
+```
+
+If you set `wiremock_daemon` to `true` then this variable can be used to ensure how that service is run.
+
+```yaml
+wiremock_root_dir: /var/wiremock
+```
+
+A base directory to install wiremock mappings and the like.
+
+```yaml
+wiremock_servers:
+  - name: wiremock
+    port: 8080
+    root_dir: "{{ wiremock_root_dir }}"
+```
+
+The important bit. This allows you to create one or more start scripts, so that you can have multiple servers for multiple mocked services.
+NOTE: Ensure that the name, port and root_dir are all unique or you're going to have a bad time. An example of multiple services would be:
+
+```yaml
+wiremock_servers:
+  - name: wiremock-oauth
+    port: 8080
+    root_dir: "{{ wiremock_root_dir }}/oauth"
+  - name: wiremock-service-1
+    port: 8081
+    root_dir: "{{ wiremock_root_dir }}/service-1"
+  - name: wiremock-service-2
+    port: 8082
+    root_dir: "{{ wiremock_root_dir }}/service-2"
+```
+
+
+Things that you probably don't want to touch:
+
+```yaml
+wiremock_version: 2.17.0
+wiremock_src: "http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/{{ wiremock_version }}/wiremock-standalone-{{ wiremock_version }}.jar"
+wiremock_original: "/usr/share/java/wiremock-standalone-{{ wiremock_version }}.jar"
+wiremock_dest: /usr/share/java/wiremock-standalone.jar
+```
+
+Where you want it all installed to and what version you want to grab.
+
+```yaml
+wiremock_user: nobody
+wiremock_group: nogroup
+```
+
+Who you want wiremock to run as
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+* geerlingguy.java
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: c0ntax.wiremock }
 
 License
 -------
 
 Apache-2.0
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
