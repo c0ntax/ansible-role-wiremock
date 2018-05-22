@@ -1,7 +1,7 @@
-Role Name
-=========
+ansible-role-wiremock
+=====================
 
-A brief description of the role goes here.
+A simple ansible role that will configure one or more wiremock servers to run.
 
 Requirements
 ------------

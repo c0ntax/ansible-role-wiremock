@@ -1,2 +1,6 @@
 ---
 # tasks file for wiremock
+
+- include: install.yml
+- include: configure.yml
+  when: wiremock_daemon

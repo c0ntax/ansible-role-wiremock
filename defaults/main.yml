@@ -1,2 +1,17 @@
 ---
 # defaults file for wiremock
+
+wiremock_version: 2.17.0
+wiremock_src: "http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/{{ wiremock_version }}/wiremock-standalone-{{ wiremock_version }}.jar"
+wiremock_original: "/usr/share/java/wiremock-standalone-{{ wiremock_version }}.jar"
+wiremock_dest: /usr/share/java/wiremock-standalone.jar
+wiremock_daemon: true
+wiremock_service_state: started
+wiremock_root_dir: /var/wiremock
+wiremock_user: nobody
+wiremock_group: nogroup
+
+wiremock_servers:
+  - name: wiremock
+    port: 8080
+    root_dir: "{{ wiremock_root_dir }}"

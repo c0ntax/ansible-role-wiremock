@@ -1,0 +1,25 @@
+---
+
+- name: Create wiremock root dir(s)
+  file:
+    path: "{{ item.root_dir }}"
+    state: directory
+    owner: "{{ wiremock_user }}"
+    group: "{{ wiremock_group }}"
+    mode: 0775
+  with_items: "{{ wiremock_servers }}"
+  become: yes
+
+- name: Install as startup script(s)
+  template:
+    src: templates/init.j2
+    dest: "/etc/init.d/{{ item.name }}"
+    mode: 0775
+  with_items: "{{ wiremock_servers }}"
+  become: yes
+
+- name: Setup startup script(s)
+  service:
+    name: "{{ item.name }}"
+    state: "{{ wiremock_service_state }}"
+  with_items: "{{ wiremock_servers }}"
