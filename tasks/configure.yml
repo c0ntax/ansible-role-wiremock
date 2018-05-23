@@ -23,3 +23,4 @@
     name: "{{ item.name }}"
     state: "{{ wiremock_service_state }}"
   with_items: "{{ wiremock_servers }}"
+  become: yes
