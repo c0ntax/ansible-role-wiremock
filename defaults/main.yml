@@ -17,3 +17,5 @@ wiremock_servers:
   - name: wiremock
     port: 8080
     root_dir: "{{ wiremock_root_dir }}"
+    enable_local_response_templating: true
+    enable_global_response_templating: false
