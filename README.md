@@ -52,9 +52,12 @@ wiremock_servers:
   - name: wiremock-oauth
     port: 8080
     root_dir: "{{ wiremock_root_dir }}/oauth"
+    enable_local_response_templating: true
+    enable_global_response_templating: false
   - name: wiremock-service-1
     port: 8081
     root_dir: "{{ wiremock_root_dir }}/service-1"
+    enable_local_response_templating: false
   - name: wiremock-service-2
     port: 8082
     root_dir: "{{ wiremock_root_dir }}/service-2"

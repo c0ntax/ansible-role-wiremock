@@ -11,7 +11,7 @@
 ### END INIT INFO
 
 dir="{{ item.root_dir }}"
-cmd="java -jar {{ wiremock_dest }} --port={{ item.port }} --root-dir={{ item.root_dir }}"
+cmd="java -jar {{ wiremock_dest }} --port={{ item.port }} --root-dir={{ item.root_dir }}{% if item.enable_local_response_templating is defined and item.enable_local_response_templating %} --local-response-templating{% endif %}{% if item.enable_global_response_templating is defined and item.enable_global_response_templating %} --global-response-templating{% endif %}"
 user="{{ wiremock_user }}"
 
 name=`basename $0`
