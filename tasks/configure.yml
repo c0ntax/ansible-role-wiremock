@@ -22,5 +22,6 @@
   service:
     name: "{{ item.name }}"
     state: "{{ wiremock_service_state }}"
+    enabled: "{{ wiremock_service_enabled }}"
   with_items: "{{ wiremock_servers }}"
   become: yes

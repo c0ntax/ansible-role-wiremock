@@ -9,6 +9,7 @@ wiremock_src: "http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-sta
 wiremock_original: "/usr/share/java/wiremock-standalone-{{ wiremock_version }}.jar"
 wiremock_dest: /usr/share/java/wiremock-standalone.jar
 wiremock_service_state: started
+wiremock_service_enabled: true
 wiremock_root_dir: /var/wiremock
 wiremock_user: nobody
 wiremock_group: nogroup

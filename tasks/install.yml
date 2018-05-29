@@ -4,7 +4,6 @@
   get_url:
     url: "{{ wiremock_src }}"
     dest: "{{ wiremock_original }}"
-  notify: restart wiremock
   become: yes
 
 - name: Linking wiremock jar
